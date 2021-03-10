@@ -21,7 +21,7 @@ pred zapnutím potrebné zadať zdroj pre ovládač firefoxu (c:/.../geckodriver
 
 # verzie
 ## v1.0
-- nefunkčné
+### nefunkčné
 * rodné číslo
 * skupina osôb do ktorej patríte
 * mesto/obec registrovanej osoby
