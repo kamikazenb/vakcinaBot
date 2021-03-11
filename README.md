@@ -16,15 +16,22 @@ kamikazenb@gmail.com
 - prehliadač mozilla firefox + potrebné stiahnuť ovládač bud z priečinka /download
   alebo priamo zo zdroja https://github.com/mozilla/geckodriver/releases
 
-program sa nachádza v zložke /download/vakcinaBotX.exe
+program sa nachádza v zložke /download/vakcinaBotX.x.exe
 pred zapnutím potrebné zadať zdroj pre ovládač firefoxu (c:/.../geckodriver_firefox_x64.exe)
 
 # verzie
+## v1.1
+### fix bugov
+* pád stránky po načítaní
+### nefuknčné
+* občas výber poisťovne / číslo domu
 ## v1.0
 ### nefunkčné
 * rodné číslo
 * skupina osôb do ktorej patríte
 * mesto/obec registrovanej osoby
+### známe bugy
+* občas zvykne po načítaní stránky bot zlyhať -> vypnúť, zapnúť bota
 
 
 

@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.io.InputStream;
 import java.time.Duration;
 import java.util.List;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class App {
 
@@ -47,6 +48,7 @@ public class App {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.pack();
         jFrame.setVisible(true);
+        jFrame.setTitle("VakcinaBot v"+"1.1");
         App app = new App();
 
     }
@@ -124,8 +126,15 @@ public class App {
         driver.findElement(By.name("street")).sendKeys(tfZiadatelUlicaNazov.getText());
         driver.findElement(By.name("zip")).sendKeys(tfZiadatelPSC.getText());
 
-        Select poistovna = new Select(driver.findElement(By.name("company")));
-        poistovna.selectByVisibleText(cbPoistovna.getSelectedItem().toString());
+        try{
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2).toMillis());
+            wait.until(presenceOfElementLocated(By.cssSelector("select>.ng-binding")));
+            Select poistovna = new Select(driver.findElement(By.name("company")));
+            poistovna.selectByVisibleText(cbPoistovna.getSelectedItem().toString());
+        }catch (Exception e){
+            System.out.println("exception in poistovna:"+e.toString());
+        }
+
 
     }
 
@@ -148,6 +157,7 @@ public class App {
                 }
             }
             playSound();
+
 
         } catch (Exception e) {
             driver.quit();
