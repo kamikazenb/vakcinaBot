@@ -7,6 +7,10 @@ takže bude stačiť zvoliť miesto očkovania.
 Ak bot zistí volné miesto, tak prestane obnovovať stránku a použítela upozorní
 zvukom (rovnakým ako pri zapnutí bota).
 
+### !! dôležité
+Počas toho ako zapnutý bot, tak nehýbať s oknom, nescollovať a
+ani na nič neklikať
+
 kamikazenb@gmail.com
 
 # špecifikácie
@@ -20,6 +24,13 @@ program sa nachádza v zložke /download/vakcinaBotX.x.exe
 pred zapnutím potrebné zadať zdroj pre ovládač firefoxu (c:/.../geckodriver_firefox_x64.exe)
 
 # verzie
+## v1.2
+### fuknčné 
+* rodné číslo
+* číslo domu
+### nefunkčné ostáva
+* skupina osôb do ktorej patríte
+* mesto/obec registrovanej osoby
 ## v1.1
 ### fix bugov
 * pád stránky po načítaní

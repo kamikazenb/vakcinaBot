@@ -1,8 +1,6 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.InputStream;
 import java.time.Duration;
 import java.util.List;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class App {
@@ -48,7 +47,7 @@ public class App {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.pack();
         jFrame.setVisible(true);
-        jFrame.setTitle("VakcinaBot v"+"1.1");
+        jFrame.setTitle("VakcinaBot v" + "1.2");
         App app = new App();
 
     }
@@ -110,12 +109,10 @@ public class App {
     public void fillForm() {
         driver.findElement(By.name("user_name")).sendKeys(tfZiadatelMeno.getText());
         driver.findElement(By.name("last_name")).sendKeys(tfZiadatelPriezvisko.getText());
-        driver.findElement(By.name("birthNumber")).sendKeys(tfZiadatelRodne.getText());
-       /* ((JavascriptExecutor) driver).executeScript(
-                "document.querySelector(\"[type='number'][step='1']\").setAttribute('value','" + value + "');");*/
-//        ((JavascriptExecutor) driver).executeScript("input[name =\"birthNumber\"].prop('value', '8806168701');\"");
+
         driver.findElement(By.name("phone")).sendKeys(tfZiadatelTC.getText());
         driver.findElement(By.name("email")).sendKeys(tfZiadatelMail.getText());
+        addNumberValues("birthNumber", tfZiadatelRodne.getText());
         driver.findElement(By.name("user_name_ice")).sendKeys(tfICEmeno.getText());
         ;
         driver.findElement(By.name("last_name_ice")).sendKeys(tfICEpriezvisko.getText());
@@ -124,29 +121,50 @@ public class App {
         driver.findElement(By.name("email_ice")).sendKeys(tfZiadatelMail.getText());
 
         driver.findElement(By.name("street")).sendKeys(tfZiadatelUlicaNazov.getText());
+        driver.findElement(By.name("streetNumm")).sendKeys(tfZiadatelUlicaCislo.getText());
         driver.findElement(By.name("zip")).sendKeys(tfZiadatelPSC.getText());
 
-        try{
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2).toMillis());
-            wait.until(presenceOfElementLocated(By.cssSelector("select>.ng-binding")));
+        try {
             Select poistovna = new Select(driver.findElement(By.name("company")));
             poistovna.selectByVisibleText(cbPoistovna.getSelectedItem().toString());
-        }catch (Exception e){
-            System.out.println("exception in poistovna:"+e.toString());
+        } catch (Exception e) {
+            System.out.println("exception in poistovna:" + e.toString());
         }
 
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.name("patientForm")));
+        js.executeScript("window.scrollBy(0,-50)");
+    }
 
+    public void addNumberValues(String elementPosition, String text){
+        try {
+            Actions action = new Actions(driver);
+            action.moveToElement(driver.findElement(By.name(elementPosition))).click();
+            for (int i = text.length()-1; i >= 0; i--) {
+                Thread.sleep(30);
+                action.sendKeys(Keys.HOME).perform();
+                action.sendKeys(String.valueOf(text.charAt(i))).perform();
+            }
+        } catch (Exception e) {
+            System.out.println("exception in number:" + e.toString());
+        }
     }
 
     public void startBot() {
-        System.setProperty("webdriver.gecko.driver",tfDriver.getText());
+        System.setProperty("webdriver.gecko.driver", tfDriver.getText());
         driver = new FirefoxDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10).toMillis());
         driver.get("https://www.old.korona.gov.sk/covid-19-vaccination-form.php");
         boolean refresh = true;
         try {
             while (refresh) {
-                wait = new WebDriverWait(driver, Duration.ofSeconds(2).toMillis());
+                try {
+                    new WebDriverWait(driver, 2).until(
+                            webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+                    Thread.sleep(300);
+                } catch (Exception e) {
+                    System.out.println("exception in wait:" + e.toString());
+                }
+
                 if (isFreePlace(cbPreferovanyKraj.getSelectedItem().toString())) {
                     refresh = false;
                 }
