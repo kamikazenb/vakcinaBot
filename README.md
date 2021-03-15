@@ -7,16 +7,16 @@ takže bude stačiť zvoliť miesto očkovania.
 Ak bot zistí volné miesto, tak prestane obnovovať stránku a použítela upozorní
 zvukom (rovnakým ako pri zapnutí bota).
 
-### !! dôležité
-Počas toho ako zapnutý bot, tak nehýbať s oknom, nescollovať a
-ani na nič neklikať
+### !! Počas činnosti bota nehýbať s oknom, nescollovať a ani na nič neklikať !!
+
 
 kamikazenb@gmail.com
 
 # špecifikácie
 - určené pre windows 10 (testované na Win10 64bit aj 32bit)
-- JAVA min v 10 -> https://www.oracle.com/java/technologies/javase-jdk15-downloads.html (len 64bit)
-                -> https://adoptopenjdk.net/index.html (32bit alternatíva)
+- JAVA minimálne verzia 10
+   -> https://www.oracle.com/java/technologies/javase-jdk15-downloads.html (len 64bit)
+   -> https://adoptopenjdk.net/index.html (32bit alternatíva)
 - prehliadač mozilla firefox + potrebné stiahnuť ovládač bud z priečinka /download
   alebo priamo zo zdroja https://github.com/mozilla/geckodriver/releases
 
@@ -31,6 +31,10 @@ pred zapnutím potrebné zadať zdroj pre ovládač firefoxu (c:/.../geckodriver
 ### nefunkčné ostáva
 * skupina osôb do ktorej patríte
 * mesto/obec registrovanej osoby
+### reakcia na novinky zo strany štátu (zmeny vo formulári)
+* bot padá v prípade ak stránka zahlási že niesú voľné kapacity bez možnosti vloženia údajov
+  (časom isto fixnem)
+* Avizované viackrokové prihlasovanie isto funkčné nebude, uvidím či bude možný edit bota
 ## v1.1
 ### fix bugov
 * pád stránky po načítaní
